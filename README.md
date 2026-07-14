@@ -108,13 +108,13 @@ Logistic Regression|	0.7904	 | 0.3621	   | 0.6562 | 0.4667   |0.8484
 - O tratamento do desbalanceamento com SMOTE melhorou o recall da classe minoritaria
   
 ## Como Executar
-''' bash
+``` bash
 # 1. Instalar dependencias
 pip install -r requirements.txt
 
 # 2. Executar o notebook
 jupyter notebook notebooks/wine_quality_classification.ipynb
-'''
+```
 
 ## Tecnologias Utilizadas
 - **Python 3.12**
