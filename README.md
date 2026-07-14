@@ -1,59 +1,62 @@
 
-# Classificacao da Qualidade de Vinhos com Machine Learning
+# Classificação da Qualidade de Vinhos com Machine Learning
 
 ## Tech Challenge - Fase 2 | POSTECH FIAP
 
-Projeto de classificacao binaria para prever a qualidade de vinhos tintos (Alta vs Baixa/Media) a partir de caracteristicas fisico-quimicas, utilizando tecnicas de Machine Learning.
+Projeto de classificação binária para prever a qualidade de vinhos tintos (Alta vs Baixa/Média) a partir de características físico-químicas, utilizando técnicas de Machine Learning.
 
 ---
 
 ## Objetivo
 
-Desenvolver um modelo de classificacao capaz de prever a qualidade de um vinho com base em suas caracteristicas fisico-quimicas. A variavel de qualidade foi transformada em classificacao binaria:
+Desenvolver um modelo de classificação capaz de prever a qualidade de um vinho com base em suas características físico-químicas. A variável de qualidade foi transformada em classificação binária:
 
-- ## Alta Qualidade: nota >= 7
-- ## Baixa/Media Qualidade: nota < 7
-  
+- **Alta Qualidade**: nota >= 7
+- **Baixa/Média Qualidade**: nota < 7
+
 ## Dataset
+
 **Fonte:** [Wine Quality Dataset - Kaggle](https://www.kaggle.com/datasets/yasserh/wine-quality-dataset)
 
 - **1.143 amostras** de vinhos tintos
-- **11 variaveis** fisico-quimicas + 1 variavel alvo (quality)
+- **11 variáveis** físico-químicas + 1 variável alvo (quality)
 - **Sem dados faltantes**
-- **Classes desbalanceadas**: 86.1% Baixa/Media vs 13.9% Alta Qualidade
+- **Classes desbalanceadas**: 86.1% Baixa/Média vs 13.9% Alta Qualidade
 
-### Variaveis
+### Variáveis
 
-**Variavel**	       |   **Descricao**
-fixed acidity	       |   Acidez fixa
-volatile acidity 	   |   Acidez volatil
-citric acid	         |   Acido citrico
-residual sugar       |   Acucar residual
-chlorides	           |   Cloretos
-free sulfur dioxide	 |   Dioxido de enxofre livre
-total sulfur dioxide |	  Dioxido de enxofre total
-density	             |    Densidade
-pH	                 |   pH
-sulphates	           |   Sulfatos
-alcohol	             |   Teor alcoolico
-quality	             |   "Qualidade (variavel alvo original, notas 3-8)"
+| Variável | Descrição |
+|---|---|
+| fixed acidity | Acidez fixa |
+| volatile acidity | Acidez volátil |
+| citric acid | Ácido cítrico |
+| residual sugar | Açúcar residual |
+| chlorides | Cloretos |
+| free sulfur dioxide | Dióxido de enxofre livre |
+| total sulfur dioxide | Dióxido de enxofre total |
+| density | Densidade |
+| pH | pH |
+| sulphates | Sulfatos |
+| alcohol | Teor alcoólico |
+| quality | Qualidade (variável alvo original, notas 3-8) |
 
 ## Estrutura do Projeto
 
 ```
 wine-quality-classification/
+|
 |-- data/                    # Base de dados utilizada
 |   |-- WineQT.csv
 |
-|-- notebooks/               # Notebook com a analise e modelagem
+|-- notebooks/               # Notebook com a análise e modelagem
 |   |-- wine_quality_classification.ipynb
 |
 |-- src/                     # Scripts auxiliares
 |   |-- __init__.py
-|   |-- preprocessing.py     # Pre-processamento de dados
-|   |-- modeling.py          # Treinamento e avaliacao de modelos
+|   |-- preprocessing.py     # Pré-processamento de dados
+|   |-- modeling.py          # Treinamento e avaliação de modelos
 |
-|-- results/                 # Graficos e metricas dos modelos
+|-- results/                 # Gráficos e métricas dos modelos
 |   |-- 01_distribuicao_quality.png
 |   |-- 02_distribuicao_variaveis.png
 |   |-- 03_boxplots_outliers.png
@@ -68,48 +71,53 @@ wine-quality-classification/
 |   |-- 12_top_features_melhor_modelo.png
 |   |-- metricas_modelos.csv
 |
-|-- relatorio_executivo.md   # Relatorio executivo completo
+|-- relatorio_executivo.md   # Relatório executivo completo
 |-- requirements.txt         # Bibliotecas utilizadas
 |-- README.md                # Este arquivo
 ```
 
 ## Metodologia
-## 1. Compreensao do Problema
-- Interpretacao do contexto da industria vitivinicola
-- Transformacao da variavel quality em classificacao binaria (>= 7 = Alta, < 7 = Baixa/Media)
 
-## 2. Analise Exploratoria de Dados (EDA)
-- Distribuicao de todas as 11 variaveis (histogramas + KDE)
-- Deteccao de outliers pelo metodo IQR
-- Matriz de correlacao com justificativas
-- Teste estatistico de Mann-Whitney U entre classes
-- Analise do desbalanceamento (86% vs 14%)
-  
-## 3. Pre-processamento
-- Remocao da coluna Id
-- Divisao treino/teste (80/20) com estratificacao
-- Normalizacao com StandardScaler
+### 1. Compreensão do Problema
+- Interpretação do contexto da indústria vitivinícola
+- Transformação da variável quality em classificação binária (>= 7 = Alta, < 7 = Baixa/Média)
+
+### 2. Análise Exploratória de Dados (EDA)
+- Distribuição de todas as 11 variáveis (histogramas + KDE)
+- Detecção de outliers pelo método IQR
+- Matriz de correlação com justificativas
+- Teste estatístico de Mann-Whitney U entre classes
+- Análise do desbalanceamento (86% vs 14%)
+
+### 3. Pré-processamento
+- Remoção da coluna Id
+- Divisão treino/teste (80/20) com estratificação
+- Normalização com StandardScaler
 - Balanceamento de classes com SMOTE (Synthetic Minority Over-sampling Technique)
 
-## 4. Modelos Treinados
-Foram treinados 4 modelos de classificacao:
-Modelo             |	Accuracy | Precision | Recall	| F1-Score |AUC-ROC
-**Gradient Boosting**  | **0.8908**	 | **0.5946**	   | **0.6875**	| **0.6377**   |0.8614
-XGBoost	           |  0.8865	 | 0.5789	   | 0.6875 | 0.6286   |0.8907
-Random Forest      |	0.8777	 | 0.5556	   | 0.6250	| 0.5882   |0.9067
-Logistic Regression|	0.7904	 | 0.3621	   | 0.6562 | 0.4667   |0.8484
+### 4. Modelos Treinados
+
+Foram treinados 4 modelos de classificação:
+
+| Modelo | Accuracy | Precision | Recall | F1-Score | AUC-ROC |
+|---|---|---|---|---|---|
+| **Gradient Boosting** | **0.8908** | **0.5946** | **0.6875** | **0.6377** | 0.8614 |
+| XGBoost | 0.8865 | 0.5789 | 0.6875 | 0.6286 | 0.8907 |
+| Random Forest | 0.8777 | 0.5556 | 0.6250 | 0.5882 | **0.9067** |
+| Logistic Regression | 0.7904 | 0.3621 | 0.6562 | 0.4667 | 0.8484 |
 
 **Melhor modelo por F1-Score: Gradient Boosting (0.6377)**
 
-## 5. Principais Resultados
-- **Alcohol** e a variavel com maior influencia positiva na qualidade
-- **Volatile acidity** e a variavel com maior influencia negativa
-- **Sulphates** e **citric acid** tambem sao preditores importantes
-- O tratamento do desbalanceamento com SMOTE melhorou o recall da classe minoritaria
-  
+### 5. Principais Resultados
+- **Alcohol** é a variável com maior influência positiva na qualidade
+- **Volatile acidity** é a variável com maior influência negativa
+- **Sulphates** e **citric acid** também são preditores importantes
+- O tratamento do desbalanceamento com SMOTE melhorou o recall da classe minoritária
+
 ## Como Executar
-``` bash
-# 1. Instalar dependencias
+
+```bash
+# 1. Instalar dependências
 pip install -r requirements.txt
 
 # 2. Executar o notebook
@@ -117,12 +125,14 @@ jupyter notebook notebooks/wine_quality_classification.ipynb
 ```
 
 ## Tecnologias Utilizadas
+
 - **Python 3.12**
-- **pandas** - Manipulacao de dados
-- **numpy** - Computacao numerica
-- **matplotlib / seaborn** - Visualizacao de dados
-- **scikit-learn** - Modelos de ML e metricas
+- **pandas** - Manipulação de dados
+- **numpy** - Computação numérica
+- **matplotlib / seaborn** - Visualização de dados
+- **scikit-learn** - Modelos de ML e métricas
 - **XGBoost** - Gradient boosting otimizado
 - **imbalanced-learn** - Tratamento de desbalanceamento (SMOTE)
-- **scipy** - Testes estatisticos
+- **scipy** - Testes estatísticos
+
 
